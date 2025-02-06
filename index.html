@@ -381,5 +381,38 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+    <script>
+  // دالة لإرسال بيانات إلى قاعدة البيانات
+  function sendData() {
+    const data = {
+      name: "John",
+      age: 30,
+      email: "john@example.com"
+    };
+    database.ref('users/').push(data)
+      .then(() => {
+        console.log("Data sent successfully!");
+      })
+      .catch((error) => {
+        console.error("Error sending data: ", error);
+      });
+  }
+
+  // دالة لقراءة البيانات من قاعدة البيانات
+  function readData() {
+    database.ref('users/').once('value')
+      .then((snapshot) => {
+        const data = snapshot.val();
+        console.log("Data received: ", data);
+      })
+      .catch((error) => {
+        console.error("Error reading data: ", error);
+      });
+  }
+
+  // استدعاء الدوال (يمكنك استدعاؤها عند حدث معين مثل النقر على زر)
+  sendData();
+  readData();
+</script>
 </body>
 </html>
